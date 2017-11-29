@@ -6,15 +6,29 @@ public class PauseAndPlay : MonoBehaviour
 {
 
 
-
-
-	public void Pause ()
+    public GameObject Conf;
+    public GameObject Score;
+    public GameObject StarScreen;
+    public void Pause()
     {
+
+        if (Time.timeScale == 1.0F)
+        {
+            Conf.SetActive(true);
+            Time.timeScale = 0.0F;
+            Score.SetActive(false);
+        }
+
+        else
+        {
+            Conf.SetActive(false);
+            Time.timeScale = 1.0F;
+            Score.SetActive(true);
+        }
+           
     
-            if (Time.timeScale == 1.0F)
-                Time.timeScale = 0.0F;
-            else
-                Time.timeScale = 1.0F;
+
+           
            
     }
 }

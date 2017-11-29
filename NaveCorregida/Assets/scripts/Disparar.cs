@@ -7,36 +7,55 @@ public class Disparar : MonoBehaviour
 {
 
     public GameObject bala;
-    public float cooldDownTime = 0.2f;
-    private float currentCooldDownTime = 0;
+    public GameObject nave;
+    static public float cooldDownTime = 5;
+    public  float currentCooldDownTime = 0;
     AudioSource reproductorAudio;
     public AudioClip piu;
     public Slider VolumenFx;
     public Toggle VolumenFxtogle;
+    public Slider CoolDownTimeSlider;
+    float Disparar2veces;
+    int counter;
+
+    Player DispararMasRapido;
     void Start()
     {
         reproductorAudio = GetComponent<AudioSource>();
+        DispararMasRapido = GetComponent<Player>();
+
+
     }
 
     void Update()
     {
-        if (currentCooldDownTime < 0)
+   
+       
+
+        if (currentCooldDownTime < 0 && Input.GetKeyUp(KeyCode.Space))
         {
+            CoolDownTimeSlider.value = currentCooldDownTime;
             DispararEnElButton();
+            currentCooldDownTime = cooldDownTime;
+           
         }
+       
         currentCooldDownTime -= Time.deltaTime;
+        CoolDownTimeSlider.value = currentCooldDownTime;
+
 
     }
 
 
-    void DispararEnElButton()
+    public void DispararEnElButton()
     {
       
          
-            currentCooldDownTime = cooldDownTime;
+           
             Instantiate(bala, transform.position, bala.transform.rotation);    
             reproductorAudio.PlayOneShot(piu);
-            reproductorAudio.volume = VolumenFx.value;
+        
+           
             if (VolumenFxtogle.isOn == false)
             {
             reproductorAudio.volume = 0;

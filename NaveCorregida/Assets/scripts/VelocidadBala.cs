@@ -5,11 +5,15 @@ using UnityEngine;
 public class VelocidadBala : MonoBehaviour {
 
     public float velocidad=100;
+    public float x;
+    public float y;
+    public float z;
 
-	
 
-	void Update ()
+
+
+    void Update ()
     {
-        transform.Translate(Vector3.forward * velocidad * Time.deltaTime, Space.World);
+        transform.Translate(new Vector3(x,y,z) * velocidad * Time.deltaTime, Space.World);
 	}
 }

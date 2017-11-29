@@ -8,6 +8,7 @@ public class ConfMovimiento : MonoBehaviour {
     public GameObject dondeMueve;
     public GameObject salida;
     public float tiempoMovimiento;
+    public GameObject SalirButton;
     void Start()
     {
         gameObject.SetActive(false);
@@ -20,9 +21,11 @@ public class ConfMovimiento : MonoBehaviour {
             case "si":
                 gameObject.SetActive(true);
                 iTween.MoveTo(ElQueseMueve, dondeMueve.transform.position, tiempoMovimiento);
+                SalirButton.SetActive(false);
                 break;
             case "no":
                 iTween.MoveTo(ElQueseMueve, salida.transform.position, tiempoMovimiento);
+                SalirButton.SetActive(true);
                 break;
         }
     }

@@ -6,8 +6,15 @@ public class Player : MonoBehaviour {
 
     public static float Score = 0;
 
-    public Slider VolumenFxSlider;
+    public Slider LifeSlider;
     public Toggle VolumenFxtogle;
+
+
+    static public int life=100;
+    static public int maxLife = 100;
+    static public int minLife = 0;
+
+    public Slider CoolDownTimeSlider;
 
     public float turnSpeed = 1;
     public float MaxPlaneRotationDegrees = 45;
@@ -17,6 +24,7 @@ public class Player : MonoBehaviour {
 
     protected float currentSpeed = 0;
     public GameObject AudioManagerMusic;
+    
 
     protected Transform plane;
 
@@ -31,16 +39,17 @@ public class Player : MonoBehaviour {
 
     //particles
     public GameObject particlesPrefab;
-    
     public float secondsWaitingOnDeath = 3;
     public GameManager manager;
     public GameObject Gamemanager;
+    public float Disparar=0f;
+    
 
     // Use this for initialization
     void Start()
     {
-        
 
+        LifeSlider.maxValue = maxLife;
         initialPos = transform.position;
 
         plane = transform.GetChild(0);
@@ -51,8 +60,24 @@ public class Player : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        LifeSlider.value = life;
+        if (life<0)
+        {
+            StartCoroutine(Respawn());
+        }
 
-        particlesPrefab.GetComponent<AudioSource>().volume = VolumenFxSlider.value;
+
+        if (life > maxLife)
+        {
+            life = maxLife;
+        }
+        if (life <= minLife)
+        {
+            life = minLife;
+
+        }
+
+
         if (VolumenFxtogle.isOn == false)
         {
             manager.GetComponent<AudioSource>().volume = 0;
@@ -69,7 +94,7 @@ public class Player : MonoBehaviour {
             if (currentSpeed > maxSpeed)
             {
                 currentSpeed = maxSpeed;
-                //currentSpeed = currentSpeed + Time.deltaTime * acceleration > MaxSpeed ? MaxSpeed : currentSpeed + Time.deltaTime * acceleration > MaxSpeed;
+               
             }
 
 
@@ -105,13 +130,15 @@ public class Player : MonoBehaviour {
         {
             if (other.tag == "TriggerEndLevel")
             {
+
                 StartCoroutine(waitAndEnd());
                 AudioManagerMusic.GetComponent<AudioSource>().Pause();
-              
+               
 
             }
             else if (other.tag == "Obstacles")
             {
+
                 StartCoroutine(Respawn());
             }
             else if (other.tag == "Moneda")
@@ -119,8 +146,34 @@ public class Player : MonoBehaviour {
                 other.GetComponent<SphereCollider>().enabled = false;
                 other.GetComponent<MeshRenderer>().enabled=false;
                 Player.Score += 10;
-            }
+          
 
+      
+            }
+            else if (other.tag == "Heal")
+            {
+                other.GetComponent<BoxCollider>().enabled = false;
+                other.GetComponent<MeshRenderer>().enabled = false;
+                Player.life += 50;
+
+
+            }
+            else if (other.tag == "Mana")
+            {
+                
+                other.GetComponent<BoxCollider>().enabled = false;
+                other.GetComponent<MeshRenderer>().enabled = false;
+
+     
+               
+             
+            }
+         
+            else if (other.tag == "Dron")
+            {
+                Player.life -= 25;
+            }
+            LifeSlider.value = life;
         }
     }
 
@@ -130,10 +183,10 @@ public class Player : MonoBehaviour {
 
         currentSpeed = 0;
         hasControl = false;
+        Player.life = maxLife;
 
         plane.gameObject.SetActive(false);
-        particlesPrefab.GetComponent<AudioSource>().Play();
-        particlesPrefab.GetComponent<AudioSource>().volume = VolumenFxSlider.value;
+
         if (VolumenFxtogle.isOn == false)
         {
             particlesPrefab.GetComponent<AudioSource>().volume = 0;
@@ -153,7 +206,7 @@ public class Player : MonoBehaviour {
         plane.gameObject.SetActive(true);
         hasControl = true;
         Player.Score = 0;
-
+    
         yield return null;
     }
 

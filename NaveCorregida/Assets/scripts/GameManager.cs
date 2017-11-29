@@ -3,29 +3,37 @@ using System.Collections;
 using UnityEngine.UI;
 
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
     public GameObject startUI;
     public GameObject endUI;
     public Text ScoreText;
     public Text ScoreGame;
-	public Text CargarPuntaje;
-	public int ComparacionPuntaje;
+    public static string Nicknametext;
+    public InputField Nicknameinput;
     public GameObject CanvasScore;
-	public float  c=0;
-    public float c1 = 0;
-    public int i=0;
+    public AudioSource[] AudiosFx;
+    public Text nicnameText;
 
-    public int myLevel=0;
+
+    public int myLevel = 0;
     public Player player;
 
     public bool getControlOfPlayerAtStart = false;
 
-    
 
-    // Use this for initialization
-    void Start () {
-        //Used to be able to play directly from play when testing levels
-        CanvasScore.SetActive(false);
+
+ 
+    void Start()
+    {
+        if (Nicknametext == null)
+        Nicknametext = "Nabuconodosor";
+
+        if (endUI != null)
+        {
+            endUI.SetActive(false);
+        }
+
         if (getControlOfPlayerAtStart)
         {
             player.hasControl = false;
@@ -34,6 +42,10 @@ public class GameManager : MonoBehaviour {
         if (startUI != null)
         {
             startUI.SetActive(true);
+            if (myLevel != 0)
+            {
+                loadLevel(0);
+            }
             Player.Score = 0;
         }
         else
@@ -48,13 +60,18 @@ public class GameManager : MonoBehaviour {
 
         player.manager = this;
     }
-
-
     void Update()
     {
-        ScoreGame.text = "Score: " + Player.Score;
+        ScoreText.text = "Tu puntaje Es: " + Player.Score.ToString("0");
+
+        if (nicnameText!=null)
+        nicnameText.text = Nicknametext;
     }
 
+    public void Nickname(string textnicname)
+    {
+        Nicknametext = textnicname;
+    }
 
     /// <summary>
     /// This is called from the UI button
@@ -64,9 +81,10 @@ public class GameManager : MonoBehaviour {
         if (startUI != null)
         {
             startUI.SetActive(false);
+
             CanvasScore.SetActive(true);
         }
-        
+
         player.hasControl = true;
     }
 
@@ -77,49 +95,31 @@ public class GameManager : MonoBehaviour {
     {
         if (endUI != null)
         {
-			endUI.gameObject.SetActive(true);
+            CanvasScore.SetActive(false);
+            endUI.SetActive(true);
+            endUI.gameObject.SetActive(true);
             ScoreText.text = "Tu puntaje Es: " + Player.Score.ToString("0");
-
-
-            if (i == 0 )
-			{
-				
-				PlayerPrefs.SetFloat ("PlayerScore1", Player.Score);
-						
-			}
-            if (i == 1)
+            if (myLevel==3)
             {
-
-                PlayerPrefs.SetFloat("PlayerScore2", Player.Score);
-               
+                ScoreGame.text = "Puntaje final: " + Player.Score.ToString("0");
             }
-            if (i == 2)
-            {
-
-                PlayerPrefs.SetFloat("PlayerScore2", Player.Score);
-
-            }
-
-
-
-
-            i += 1;
 
 
 
         }
         else
         {
-            loadLevel(myLevel+1);
+            loadLevel(myLevel + 1);
         }
 
     }
-    
+
 
     public void loadLevel(int level)
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(level);
     }
-	
-	
+
+
+
 }
