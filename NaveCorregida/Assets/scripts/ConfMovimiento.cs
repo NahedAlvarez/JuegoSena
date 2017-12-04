@@ -16,13 +16,13 @@ public class ConfMovimiento : MonoBehaviour {
         switch (Activar)
         {
             case "si":
-          
-                iTween.MoveTo(ElQueseMueve, dondeMueve.transform.position, tiempoMovimiento);
-                
+
+                transform.position = Vector3.MoveTowards(ElQueseMueve.transform.position, dondeMueve.transform.position, tiempoMovimiento * Time.deltaTime);
+
                 break;
             case "no":
-                iTween.MoveTo(ElQueseMueve, salida.transform.position, tiempoMovimiento);
-               
+                transform.position = Vector3.MoveTowards(ElQueseMueve.transform.position, salida.transform.position, tiempoMovimiento * Time.deltaTime);
+
                 break;
         }
     }

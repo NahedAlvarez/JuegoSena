@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManagerFx : MonoBehaviour
 {
@@ -8,12 +9,19 @@ public class AudioManagerFx : MonoBehaviour
     public AudioClip Explosion;
     public AudioClip Ganar;
     public AudioSource reproductorAudio;
+    public float volumenFx;
+    public Slider sliderFx;
 	
 	void Start ()
     {
         reproductorAudio = GetComponent<AudioSource>();
+        
     }
-	
+    void Update()
+    {
+        volumenFx = sliderFx.value;
+        reproductorAudio.volume = volumenFx;
+    }
 
 
     public void activandoAudio(string nombreAudio)
@@ -23,19 +31,23 @@ public class AudioManagerFx : MonoBehaviour
         {
             case "Lazer":
                 reproductorAudio.PlayOneShot(PiuLazer);
-                Debug.Log("Activado el audio piuLazer");
+
+
                 break;
             case "Explosion":
                 reproductorAudio.PlayOneShot(Explosion);
-                Debug.Log("Activado el audio Explosion");
+
                 break;
             case "Ganar":
                 reproductorAudio.PlayOneShot(Ganar);
-                Debug.Log("Activado el audio Ganar");
+
                 break;
             default:
                 Debug.Log("El nombre es incorrecto");
                 break;
         }
+
+
+       
     }
 }
