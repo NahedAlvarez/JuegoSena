@@ -9,13 +9,13 @@ public class Player : MonoBehaviour {
     public Slider LifeSlider;
     public Toggle VolumenFxtogle;
 
+    public AudioManagerFx reproductorAudio;
 
     static public int life=100;
     static public int maxLife = 100;
     static public int minLife = 0;
 
-    public Slider CoolDownTimeSlider;
-
+  
     public float turnSpeed = 1;
     public float MaxPlaneRotationDegrees = 45;
 
@@ -42,7 +42,7 @@ public class Player : MonoBehaviour {
     public float secondsWaitingOnDeath = 3;
     public GameManager manager;
     public GameObject Gamemanager;
-    public float Disparar=0f;
+  
     
 
     // Use this for initialization
@@ -77,15 +77,6 @@ public class Player : MonoBehaviour {
 
         }
 
-
-        if (VolumenFxtogle.isOn == false)
-        {
-            manager.GetComponent<AudioSource>().volume = 0;
-        }
-        else
-        {
-            manager.GetComponent<AudioSource>().volume = 1;
-        }
 
 
         if (hasControl)
@@ -126,11 +117,11 @@ public class Player : MonoBehaviour {
 
     public void OnTriggerEnter(Collider other)
     {
-        if (hasControl)//Para evitar que esto pase varias veces seguidas
+        if (hasControl)
         {
             if (other.tag == "TriggerEndLevel")
             {
-
+                reproductorAudio.activandoAudio("Ganar");
                 StartCoroutine(waitAndEnd());
                 AudioManagerMusic.GetComponent<AudioSource>().Pause();
                
@@ -187,14 +178,7 @@ public class Player : MonoBehaviour {
 
         plane.gameObject.SetActive(false);
 
-        if (VolumenFxtogle.isOn == false)
-        {
-            particlesPrefab.GetComponent<AudioSource>().volume = 0;
-        }
-        else
-        {
-            particlesPrefab.GetComponent<AudioSource>().volume = 1;
-        }
+        reproductorAudio.activandoAudio("Explosion");
 
         var particles = Instantiate(particlesPrefab, new Vector3(transform.position.x,transform.position.y,transform.position.z - 6f), transform.rotation);
 

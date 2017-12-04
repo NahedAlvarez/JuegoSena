@@ -15,20 +15,17 @@ public class AudioManagerFx : MonoBehaviour
     }
 	
 
-	void Update ()
-    {
-		
-	}
+
     public void activandoAudio(string nombreAudio)
     {
         string nombreCancion = nombreAudio;
         switch (nombreCancion)
         {
-            case "saludActiva":
+            case "Lazer":
                 reproductorAudio.PlayOneShot(PiuLazer);
                 Debug.Log("Activado el audio piuLazer");
                 break;
-            case "venenoActivo":
+            case "Explosion":
                 reproductorAudio.PlayOneShot(Explosion);
                 Debug.Log("Activado el audio Explosion");
                 break;

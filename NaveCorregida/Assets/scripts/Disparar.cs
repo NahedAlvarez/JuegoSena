@@ -10,19 +10,18 @@ public class Disparar : MonoBehaviour
     public GameObject nave;
     static public float cooldDownTime = 5;
     public  float currentCooldDownTime = 0;
-    AudioSource reproductorAudio;
-    public AudioClip piu;
-    public Slider VolumenFx;
-    public Toggle VolumenFxtogle;
+    public AudioManagerFx reproductorAudio;
+
     public Slider CoolDownTimeSlider;
-    float Disparar2veces;
+ 
     int counter;
 
     Player DispararMasRapido;
     void Start()
     {
-        reproductorAudio = GetComponent<AudioSource>();
+     
         DispararMasRapido = GetComponent<Player>();
+
 
 
     }
@@ -52,18 +51,11 @@ public class Disparar : MonoBehaviour
       
          
            
-            Instantiate(bala, transform.position, bala.transform.rotation);    
-            reproductorAudio.PlayOneShot(piu);
+            Instantiate(bala, transform.position, bala.transform.rotation);
+            reproductorAudio.activandoAudio("Lazer");
         
            
-            if (VolumenFxtogle.isOn == false)
-            {
-            reproductorAudio.volume = 0;
-            }
-            else
-            {
-            reproductorAudio.volume = 1;
-            }
+           
 
 
 

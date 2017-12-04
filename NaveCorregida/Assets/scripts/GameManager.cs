@@ -5,16 +5,17 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    int c;
     public GameObject startUI;
     public GameObject endUI;
+
     public Text ScoreText;
     public Text ScoreGame;
-    public static string Nicknametext;
-    public InputField Nicknameinput;
-    public GameObject CanvasScore;
-    public AudioSource[] AudiosFx;
-    public Text nicnameText;
 
+    public GameObject CanvasScore;
+  
+    public InputField nicknameinputfield;
+    public string nameUser;
 
     public int myLevel = 0;
     public Player player;
@@ -26,9 +27,8 @@ public class GameManager : MonoBehaviour
  
     void Start()
     {
-        if (Nicknametext == null)
-        Nicknametext = "Nabuconodosor";
 
+        c = 0;
         if (endUI != null)
         {
             endUI.SetActive(false);
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         {
             player.hasControl = false;
         }
-        //If we are at a start level
+      
         if (startUI != null)
         {
             startUI.SetActive(true);
@@ -52,66 +52,84 @@ public class GameManager : MonoBehaviour
         {
             startGame();
         }
-        //If we are at an end level
-        if (endUI != null)
-        {
-            endUI.SetActive(false);
-        }
+        
+
 
         player.manager = this;
     }
+
     void Update()
     {
-        ScoreText.text = "Tu puntaje Es: " + Player.Score.ToString("0");
 
-        if (nicnameText!=null)
-        nicnameText.text = Nicknametext;
+        ScoreText.text = "Tu puntaje es " + Player.Score.ToString("0");
+        if (nicknameinputfield != null)
+        {
+            nameUser = nicknameinputfield.text;
+        }
+        
     }
 
-    public void Nickname(string textnicname)
+
+
+
+
+    public void ReStar()
     {
-        Nicknametext = textnicname;
+
+        loadLevel(0);
+
     }
 
-    /// <summary>
-    /// This is called from the UI button
-    /// </summary>
-    public void startGame()
+
+   public void startGame()
     {
         if (startUI != null)
         {
             startUI.SetActive(false);
 
             CanvasScore.SetActive(true);
+
+            myLevel = 0;
+            
         }
 
         player.hasControl = true;
     }
 
-    /// <summary>
-    /// This is called when the player ends a level
-    /// </summary>
+   
+    float Puntaje;
     public void endLevel()
     {
+    
+
         if (endUI != null)
         {
+
             CanvasScore.SetActive(false);
             endUI.SetActive(true);
             endUI.gameObject.SetActive(true);
-            ScoreText.text = "Tu puntaje Es: " + Player.Score.ToString("0");
-            if (myLevel==3)
-            {
-                ScoreGame.text = "Puntaje final: " + Player.Score.ToString("0");
-            }
+            ScoreGame.text =  Player.Score.ToString("0");
+           
 
-
-
+            Puntaje = Player.Score;
         }
         else
         {
             loadLevel(myLevel + 1);
         }
 
+    }
+
+
+    public void NombreJugador()
+    {
+        if (c==0)
+        {
+
+            GetComponent<Score>().CheckeandoLosScores(Puntaje, nameUser);
+            c++;
+        }
+       
     }
 
 
