@@ -8,7 +8,7 @@ public class Disparar : MonoBehaviour
 
     public GameObject bala;
     public GameObject nave;
-    static public float cooldDownTime = 5;
+    static public float cooldDownTime = 1;
     public  float currentCooldDownTime = 0;
     public AudioManagerFx reproductorAudio;
 

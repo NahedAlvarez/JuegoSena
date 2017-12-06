@@ -9,14 +9,12 @@ public class DispararDron : MonoBehaviour {
     public float currentCooldDownTime;
     AudioSource reproductorAudio;
     public Transform Target;
-    int i;
-    /*public AudioClip piu;
-    public Slider VolumenFx;
-    public Toggle VolumenFxtogle;*/
+
+
 
     void Start()
     {
-        reproductorAudio = GetComponent<AudioSource>();
+       
         currentCooldDownTime = cooldDownTime;
 
     }
@@ -26,13 +24,13 @@ public class DispararDron : MonoBehaviour {
        
         if (currentCooldDownTime < 0)
         {
-            
-                DispararEnElButton();
-          
-           
+            //Se instancia el projectile
+            Instantiate(bala, transform.position, bala.transform.rotation);
+
+            //current cooldown se vuelve igual a 5 que es lo que tiene el cooldown 
             currentCooldDownTime = cooldDownTime;
         }
-
+        //se le resta tiempo al current cooldown 
         currentCooldDownTime -= Time.deltaTime;
 
         
@@ -40,26 +38,5 @@ public class DispararDron : MonoBehaviour {
     }
 
 
-    public void DispararEnElButton()
-    {
-
-
-
-        Instantiate(bala, transform.position, bala.transform.rotation);
-
-        
-        /*reproductorAudio.PlayOneShot(piu);
-
-        if (VolumenFxtogle.isOn == false)
-        {
-            reproductorAudio.volume = 0;
-        }
-        else
-        {
-            reproductorAudio.volume = 1;
-        }
-        */
-
-
-    }
+  
 }

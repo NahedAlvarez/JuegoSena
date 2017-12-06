@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapaAleatorio : MonoBehaviour
 {
 
-
+    
     public Rigidbody primerTerreno;
     public Rigidbody segundoTerreno;
     public Rigidbody tercerTerreno;
@@ -19,7 +19,7 @@ public class MapaAleatorio : MonoBehaviour
     void Start()
     {
 
-
+        //Se hace un for para pasar por todos los terrenos 
         for (int i= 0; i < EspaciosTerreno.Length; i++)
            {
 
@@ -27,7 +27,7 @@ public class MapaAleatorio : MonoBehaviour
                 int n = Random.Range(0, 4);
 
                 
-
+            //swith va conun numero entre 0 y 4  en todo momento se instancia uno de los suelos
                     switch (n)
                     {
                         case 0:
@@ -54,6 +54,7 @@ public class MapaAleatorio : MonoBehaviour
                             clone4 = Instantiate(cuartoTerreno, EspaciosTerreno[Point].transform.position, EspaciosTerreno[Point].transform.rotation) as Rigidbody;
                             break;
             }
+            //Se aumenta gradualmente el punto para que valla aumentando de terreno y vaya pasando por todo
             Point++;
         }
     }

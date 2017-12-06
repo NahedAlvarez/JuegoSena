@@ -10,21 +10,27 @@ public class Patroll : MonoBehaviour {
 
 	void Start ()
     {
+        //que se vaya para el punto 1 al principio
         transform.position = patrolpoint[Point].position;
     }
 	
 	
 	void Update ()
     {
+        //se utiliza es te codigo para que vayan pasando por todos los patroll point los drones 
 		if (transform.position == patrolpoint[Point].position)
         {
+            //se aumenta el punto de patroll
             Point++;
-             if (Point >= patrolpoint.Length)
+            //Si pasa del maximo punto que se devuelva al punto 
+            if (Point >= patrolpoint.Length)
              {
+                 
                     Point = 0;
              }
 
         }
+        //que se mueva por todos los pint 
         transform.position = Vector3.MoveTowards(transform.position, patrolpoint[Point].position, velocity*Time.deltaTime);
 
 

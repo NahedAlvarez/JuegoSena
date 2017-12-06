@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VelocidadBala : MonoBehaviour {
+public class VelocidadBala : MonoBehaviour
+{
 
-    public float velocidad=100;
+    public float velocidad = 100;
     public float x;
     public float y;
     public float z;
@@ -12,8 +13,20 @@ public class VelocidadBala : MonoBehaviour {
 
 
 
-    void Update ()
+    void Update()
     {
-        transform.Translate(new Vector3(x,y,z) * velocidad * Time.deltaTime, Space.World);
-	}
+        transform.Translate(new Vector3(x, y, z) * velocidad * Time.deltaTime, Space.World);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+
+        if (other.CompareTag("Obstacles"))
+        {
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+
+        }
+    }
 }
+    

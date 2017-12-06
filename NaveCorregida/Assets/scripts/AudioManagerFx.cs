@@ -9,18 +9,24 @@ public class AudioManagerFx : MonoBehaviour
     public AudioClip Explosion;
     public AudioClip Ganar;
     public AudioSource reproductorAudio;
-    public float volumenFx;
+    public float volumenFx=1;
     public Slider sliderFx;
-	
-	void Start ()
+
+    void Start()
     {
         reproductorAudio = GetComponent<AudioSource>();
-        
+        reproductorAudio.volume = 1;
     }
+
     void Update()
     {
-        volumenFx = sliderFx.value;
-        reproductorAudio.volume = volumenFx;
+        if (sliderFx != null)
+        {
+         volumenFx = sliderFx.value;
+         reproductorAudio.volume = volumenFx;
+        }
+
+      
     }
 
 
