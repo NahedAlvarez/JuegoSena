@@ -10,25 +10,81 @@ public class MapaAleatorio : MonoBehaviour
     public Rigidbody segundoTerreno;
     public Rigidbody tercerTerreno;
     public Rigidbody cuartoTerreno;
+    public GameObject Moneda;
+    int numeroMonedas;
 
     public int i=0;
     public Transform[] EspaciosTerreno;
     public int Point=0;
+    int level;
 
 
     void Start()
     {
+        //se hace un numero aleatorio para el numero para saver el numero de monedas que se deben instanciar 
+
+
+        if (level == 0)
+        {
+             numeroMonedas = 20;
+        }
+        if (level == 1)
+        {
+             numeroMonedas = 20;
+        }
+        if (level == 2)
+        {
+             numeroMonedas = 20;
+        }
+        if (level == 3)
+        {
+             numeroMonedas = 55;
+        }
 
         //Se hace un for para pasar por todos los terrenos 
         for (int i= 0; i < EspaciosTerreno.Length; i++)
            {
 
 
+               
                 int n = Random.Range(0, 4);
-
                 
-            //swith va conun numero entre 0 y 4  en todo momento se instancia uno de los suelos
-                    switch (n)
+            for (int j=0;j<numeroMonedas;j++)
+            {
+                 if(level == 0)
+                 {
+                    float xRange = Random.Range(-30, 22);
+                    float yRange = -2;
+                    float zRange = Random.Range(1, 860);
+                    Instantiate(Moneda, new Vector3(xRange, yRange, zRange), Quaternion.identity);
+                 }
+                if (level == 1)
+                {
+                    float xRange = Random.Range(-30, 22);
+                    float yRange = -2;
+                    float zRange = Random.Range(1, 1169);
+                    Instantiate(Moneda, new Vector3(xRange, yRange, zRange), Quaternion.identity);
+                }
+
+                if (level == 2)
+                {
+                    float xRange = Random.Range(-30, 22);
+                    float yRange = -2;
+                    float zRange = Random.Range(20, 1370.2f);
+                    Instantiate(Moneda, new Vector3(xRange, yRange, zRange), Quaternion.identity);
+                }
+                if (level == 3)
+                {
+                    float xRange = Random.Range(-30, 22);
+                    float yRange = -2;
+                    float zRange = Random.Range(6, 4643);
+                    Instantiate(Moneda, new Vector3(xRange, yRange, zRange), Quaternion.identity);
+                }
+
+            }
+
+       
+            switch (n)
                     {
                         case 0:
                             Rigidbody clone;
@@ -59,6 +115,11 @@ public class MapaAleatorio : MonoBehaviour
         }
     }
 
+
+    void Update()
+    {
+        level = Player.theLevel;
+    }
     /* private void NewMethod()q
      {
          switch (i)

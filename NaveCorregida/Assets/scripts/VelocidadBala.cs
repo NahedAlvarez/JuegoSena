@@ -17,7 +17,6 @@ public class VelocidadBala : MonoBehaviour
     {
         transform.Translate(new Vector3(x, y, z) * velocidad * Time.deltaTime, Space.World);
     }
-
     void OnTriggerEnter(Collider other)
     {
 
@@ -27,6 +26,6 @@ public class VelocidadBala : MonoBehaviour
             Destroy(gameObject);
 
         }
+
     }
 }
-    
