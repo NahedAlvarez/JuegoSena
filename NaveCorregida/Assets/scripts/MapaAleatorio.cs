@@ -24,22 +24,9 @@ public class MapaAleatorio : MonoBehaviour
         //se hace un numero aleatorio para el numero para saver el numero de monedas que se deben instanciar 
 
 
-        if (level == 0)
-        {
-             numeroMonedas = 20;
-        }
-        if (level == 1)
-        {
-             numeroMonedas = 20;
-        }
-        if (level == 2)
-        {
-             numeroMonedas = 20;
-        }
-        if (level == 3)
-        {
-             numeroMonedas = 55;
-        }
+
+             numeroMonedas = 55  ;
+      
 
         //Se hace un for para pasar por todos los terrenos 
         for (int i= 0; i < EspaciosTerreno.Length; i++)
@@ -58,7 +45,7 @@ public class MapaAleatorio : MonoBehaviour
                     float zRange = Random.Range(1, 860);
                     Instantiate(Moneda, new Vector3(xRange, yRange, zRange), Quaternion.identity);
                  }
-                if (level == 1)
+                else if (level == 1)
                 {
                     float xRange = Random.Range(-30, 22);
                     float yRange = -2;
@@ -66,14 +53,14 @@ public class MapaAleatorio : MonoBehaviour
                     Instantiate(Moneda, new Vector3(xRange, yRange, zRange), Quaternion.identity);
                 }
 
-                if (level == 2)
+               else if (level == 2)
                 {
                     float xRange = Random.Range(-30, 22);
                     float yRange = -2;
                     float zRange = Random.Range(20, 1370.2f);
                     Instantiate(Moneda, new Vector3(xRange, yRange, zRange), Quaternion.identity);
                 }
-                if (level == 3)
+                else if (level == 3)
                 {
                     float xRange = Random.Range(-30, 22);
                     float yRange = -2;

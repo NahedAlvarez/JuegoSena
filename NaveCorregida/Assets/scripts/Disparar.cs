@@ -11,36 +11,61 @@ public class Disparar : MonoBehaviour
     static public float cooldDownTime = 1;
     public  float currentCooldDownTime = 0;
     public AudioManagerFx reproductorAudio;
+    public bool PowerUp;
+    float tiempoPowerUp=2;
 
     public Slider CoolDownTimeSlider;
  
     int counter;
 
-    Player DispararMasRapido;
+    
     void Start()
     {
      
-        DispararMasRapido = GetComponent<Player>();
-
+      
+        PowerUp = false;
 
 
     }
 
     void Update()
     {
-   
-       
 
-        if (currentCooldDownTime < 0 && Input.GetKeyUp(KeyCode.Space))
+        CoolDownTimeSlider.minValue = 0;
+        CoolDownTimeSlider.maxValue = cooldDownTime;
+
+        if (PowerUp==true)
         {
+            tiempoPowerUp -= Time.deltaTime;
+            if (tiempoPowerUp <= 0)
+            {
+                PowerUp = false;
+                cooldDownTime = 1;
+
+            }
+        }
+
+        if (currentCooldDownTime < 0 && Input.GetKeyUp(KeyCode.Space) && PowerUp==false)
+        {
+            counter = 0;
             CoolDownTimeSlider.value = currentCooldDownTime;
             DispararEnElButton();
             currentCooldDownTime = cooldDownTime;
            
         }
-       
+        else if (currentCooldDownTime < 0 && Input.GetKeyUp(KeyCode.Space) && PowerUp == true)
+        {
+            CoolDownTimeSlider.value = currentCooldDownTime;
+            DispararEnElButton();
+            cooldDownTime = 0.01f;
+            currentCooldDownTime = cooldDownTime;
+
+        }
+
+
         currentCooldDownTime -= Time.deltaTime;
         CoolDownTimeSlider.value = currentCooldDownTime;
+
 
 
     }
@@ -60,4 +85,16 @@ public class Disparar : MonoBehaviour
 
 
     }
-}
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Mana")
+        {
+            other.GetComponent<BoxCollider>().enabled = false;
+            other.GetComponent<MeshRenderer>().enabled = false;
+            PowerUp = true;
+        }
+    }
+
+
+    }

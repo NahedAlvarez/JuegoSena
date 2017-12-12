@@ -44,6 +44,7 @@ public class Player : MonoBehaviour {
     public float secondsWaitingOnDeath = 3;
     public GameManager manager;
     public GameObject Gamemanager;
+
   
     
 
@@ -182,6 +183,9 @@ public class Player : MonoBehaviour {
             {
                 Player.life -= 25;
             }
+
+     
+
             LifeSlider.value = life;
         }
     }
